@@ -1,28 +1,43 @@
 import { scale, verticalScale } from "@/utils/styling";
 
 export const colors = {
-  primary: "#a3e635",
-  primaryLight: "#0ea5e9",
-  primaryDark: "#0369a1",
-  text: "#fff",
+  // 🌿 Primary Color Palette
+  primary: "#6BA26C",       // A lighter, friendly tone of #447055
+  primaryLight: "#A9D0A3",  // Gentle mint-like green
+  primaryDark: "#2F4E3D",   // Deep forest green
+
+  // ✅ Text
+  text: "#ffffff",
   textLight: "#e5e5e5",
   textLighter: "#d4d4d4",
-  white: "#fff",
-  black: "#000",
+
+  // ✅ Base Colors
+  white: "#ffffff",
+  black: "#000000",
+
+  // ✅ Accent Colors
   rose: "#ef4444",
-  green: "#16a34a",
-  neutral50: "#fafafa",
-  neutral100: "#f5f5f5",
-  neutral200: "#e5e5e5",
-  neutral300: "#d4d4d4",
-  neutral350: "#CCCCCC",
-  neutral400: "#a3a3a3",
-  neutral500: "#737373",
-  neutral600: "#525252",
-  neutral700: "#404040",
-  neutral800: "#262626",
-  neutral900: "#171717",
+  green: "#16a34a", 
+
+  // ✅  #447055
+  neutral50: "#f5f9f6",
+  neutral100: "#e6eee9",
+  neutral200: "#cddfd3",
+  neutral300: "#afc4b5",
+  neutral350: "#9CB4A3",
+  neutral400: "#7E9A84",
+  neutral500: "#66826C",
+  neutral600: "#556B5B",
+  neutral700: "#4A5F50",
+  neutral800: "#3C4C40",
+  neutral900: "#447055",
+  neutral1000: "#2F4E3D",
+  neutral1100: "#2B4738",
+  neutral1200: "#263D31",
+  neutral1300: "#1F3225",
+  neutral1400: "#1A2A20", 
 };
+
 
 export const spacingX = {
   _3: scale(3),
