@@ -27,8 +27,10 @@ export default function RootLayout() {
     <>
     <StatusBar style="light" backgroundColor="#0A915D" />
       <Stack screenOptions={{ headerShown: false }}  >
+      <Stack.Screen name="camera/modal" options={{ presentation: 'modal' }} />
         <Stack.Screen options={{ headerShown: false }} name="+not-found" />
       </Stack>
       </>
   );
 }
+

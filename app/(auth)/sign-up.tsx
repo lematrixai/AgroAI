@@ -1,17 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
 import BackButton from '@/components/BackButton'
+import { Link, router } from 'expo-router'
+import Typo from '@/components/Typo'
 
 const signUp = () => {
   return (
     <ScreenWrapper >
     <View style={styles.container}>
         <BackButton />
-
-      <Text>signIn</Text>
+        <Link href="/(tabs)/home" asChild>
+            <TouchableOpacity >
+              <Typo size={16} fontWeight="600" color={colors.neutral100}>
+                ⬅ Go to Home
+              </Typo>
+            </TouchableOpacity>
+          </Link>
     </View>
     </ScreenWrapper>
   )

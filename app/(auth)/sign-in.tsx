@@ -1,15 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { colors, spacingX, spacingY } from '@/constants/theme';
 import { verticalScale } from '@/utils/styling';
 import BackButton from '@/components/BackButton';
+import { useRouter } from 'expo-router';
 
 const SignIn = () => {
+
+    const router = useRouter();
   return (
     <ScreenWrapper style={styles.container}>
       <BackButton />
-      <Text style={styles.welcomeText}>Sign In</Text>
+      <TouchableOpacity onPress={() => router.replace('/(tabs)/home')}>Home</TouchableOpacity>
+      {/* <Text style={styles.welcomeText}>Sign In</Text> */}
       {/* Form components go here */}
     </ScreenWrapper>
   );
