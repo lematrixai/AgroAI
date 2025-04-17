@@ -1,9 +1,7 @@
 import React from "react";
 import {
-  Image,
   ImageBackground,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -12,49 +10,78 @@ import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Button from "@/components/Button";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import { useRouter } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Welcome = () => {
+  const router = useRouter();
+
   return (
     <ImageBackground
       source={require("@/assets/images/welcome.png")}
       style={styles.bgImage}
       resizeMode="cover"
     >
-      <ScreenWrapper>
-      <View style={styles.container}>
-        {/* Top Right Login Button */}
-        <TouchableOpacity style={styles.loginButton}>
-          <Typo fontWeight="500">Sign In</Typo>
-        </TouchableOpacity>
+      {/* Gradient overlay */}
+      <LinearGradient
+        colors={["rgba(0,0,0,0.5)", "rgba(0,0,0,0.9)"]}
+        style={StyleSheet.absoluteFill}
+      />
 
-        {/* Footer Content */}
-        <View style={styles.footer}>
-          <View style={{ alignItems: "center" }}>
-            <Typo size={30} fontWeight="800" color={colors.textLight}>
-              Discover Your Plant’s
+      <SafeAreaView style={{ flex: 1 }}>
+        
+        <View style={styles.container}>
+          {/* Top Right Login Button */}
+          <TouchableOpacity
+            onPress={() => router.replace("/(auth)/sign-in")}
+            style={styles.loginButton}
+          >
+            <Typo fontWeight="600" size={16} color={colors.neutral100}>
+              Sign In
             </Typo>
-            <Typo size={30} fontWeight="800" color={colors.textLight}>
-              Disease Early
-            </Typo>
+          </TouchableOpacity>
+
+          {/* Footer Content */}
+          <View style={styles.footer}>
+            <Animated.View
+              entering={FadeInDown.duration(400).springify().damping(12)}
+              style={styles.heading}
+            >
+              <Typo size={34} fontWeight="900" color={colors.neutral100}>
+                Discover Your Plant’s
+              </Typo>
+              <Typo size={34} fontWeight="900" color={colors.primary}>
+                Disease Early
+              </Typo>
+            </Animated.View>
+
+            <Animated.View
+              entering={FadeInDown.duration(1600).delay(300).springify()}
+              style={styles.buttonContainer}
+            >
+              <Button
+                onPress={() => router.replace("/(auth)/sign-up")}
+                style={styles.glowButton}
+              >
+                <Typo size={20} fontWeight="700" color={colors.neutral100}>
+                  Get Started
+                </Typo>
+              </Button>
+            </Animated.View>
+
+            <Animated.View
+              entering={FadeInDown.duration(1200).delay(100).springify()}
+              style={styles.description}
+            >
+              <Typo size={16} color={colors.textLighter}>
+                24/7 AI Support Assistant
+              </Typo>
+            </Animated.View>
           </View>
-          <View style={{ alignItems: "center", gap: 2 }}>
-            <Typo size={17} color={colors.textLight}>
-              Get Support from an AI Assistance Bot
-            </Typo>
-            <Typo size={17} color={colors.textLight}>
-              24/7 AI Support Assistant
-            </Typo>
-          </View>
-        <View style={styles.buttonContainer}> 
-          <Button>
-            <Typo size={22} fontWeight="600" color={colors.neutral1400}>
-              Get Started
-            </Typo>
-          </Button>
         </View>
-        </View>
-      </View>
-      </ScreenWrapper>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
@@ -70,31 +97,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    paddingTop: spacingY._7,
+    paddingTop: spacingY._10,
   },
   loginButton: {
     alignSelf: "flex-end",
-    marginTop: spacingY._10,
-    marginRight: spacingY._20,
+    marginRight: spacingX._20,
+    marginTop: spacingY._5,
+    // backgroundColor: "rgba(0,0,0,0.3)",
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    // borderRadius: 15,
   },
   footer: {
-    backgroundColor: colors.neutral900,
-    alignItems: "center",
-    paddingTop: verticalScale(30),
-    paddingBottom: verticalScale(45),
+    paddingBottom: verticalScale(50),
     gap: spacingY._20,
-    shadowColor: "white",
-    shadowOffset: {
-      width: 0,
-      height: -10,
-    },
-    elevation: 10,
-    shadowRadius: 25,
-    shadowOpacity: 0.15,
+  },
+  heading: {
+    alignItems: "flex-start",
+    paddingHorizontal: spacingX._20,
   },
   buttonContainer: {
     width: "100%",
     paddingHorizontal: spacingX._25,
-   
+  },
+  description: {
+    alignItems: "center",
+    marginTop: spacingY._10,
+  },
+  glowButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 12,
+    paddingVertical: 14,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 25,
+    elevation: 8,
   },
 });

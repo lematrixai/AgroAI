@@ -1,17 +1,35 @@
+import ScreenWrapper from '@/components/ScreenWrapper';
+import { colors, spacingX, spacingY } from '@/constants/theme';
 import { Link, Stack } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import Typo from '@/components/Typo';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 export default function NotFoundScreen() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
-      <View style={styles.container}>
-        <Text>This screen doesn't exist.</Text>
-        <Link href="/" style={styles.link}>
-          <Text>Go to home screen!</Text>
-        </Link>
-      </View>
+      <ScreenWrapper style={{ flex: 1, backgroundColor: 'crimson' }}>
+        <Stack.Screen options={{ title: 'Oops!' }} />
+        <Animated.View
+          entering={FadeIn.duration(500)}
+          style={styles.container}
+        >
+          <Typo size={24} fontWeight="700" color={colors.neutral100} style={{ marginBottom: spacingY._5 }}>
+            404 - Page Not Found
+          </Typo>
+          <Typo size={16} color={colors.textLight} style={{ textAlign: 'center' }}>
+            The screen you’re looking for doesn’t exist or may have been moved.
+          </Typo>
+
+          <Link href="/" asChild>
+            <TouchableOpacity style={styles.link}>
+              <Typo size={16} fontWeight="600" color={colors.neutral100}>
+                ⬅ Go to Home
+              </Typo>
+            </TouchableOpacity>
+          </Link>
+        </Animated.View>
+      </ScreenWrapper>
     </>
   );
 }
@@ -19,12 +37,21 @@ export default function NotFoundScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
+    paddingHorizontal: spacingX._25,
+    gap: spacingY._10,
   },
   link: {
-    marginTop: 15,
-    paddingVertical: 15,
+    marginTop: spacingY._5,
+    paddingVertical: spacingY._10,
+    paddingHorizontal: spacingX._10,
+    backgroundColor: colors.primary,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 6,
   },
 });
