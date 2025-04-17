@@ -15,6 +15,9 @@ export const colors = {
   white: "#ffffff",
   black: "#000000",
 
+  amber: "#f59e0b", // Amber
+  orange: "#f97316", // Orange
+  Yellow: '#F7D300', // Yellow
   // ✅ Accent Colors
   rose: "#ef4444",
   green: "#16a34a", 
