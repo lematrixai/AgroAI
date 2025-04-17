@@ -4,11 +4,12 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { StatusBar } from 'expo-status-bar';
+import { AuthProvider } from '@/contexts/authContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function StackLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -25,14 +26,20 @@ export default function RootLayout() {
 
   return (
     <>
-    <StatusBar style="light" backgroundColor="#0A915D" />
-      <Stack screenOptions={{ headerShown: false }}  >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="(auth)" />
-      <Stack.Screen name="(tabs)" />
+      <StatusBar style="light" backgroundColor="#0A915D" />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(tabs)" />
         <Stack.Screen options={{ headerShown: false }} name="+not-found" />
       </Stack>
-      </>
+    </>
   );
 }
 
+export default function RootLayout() {
+  return (
+    <AuthProvider>
+      <StackLayout />
+    </AuthProvider>
+  );
+}

@@ -141,19 +141,22 @@ export type UserDataType = {
 };
 
 export type AuthContextType = {
-  user: UserType;
-  setUser: Function;
+  user: UserType | null;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   login: (
     email: string,
     password: string
-  ) => Promise<{ success: boolean; msg?: string }>;
+  ) => Promise<{ success: boolean; msg: string }>;
   register: (
+    name: string,
     email: string,
-    password: string,
-    name: string
-  ) => Promise<{ success: boolean; msg?: string }>;
-  updateUserData: (userId: string) => Promise<void>;
+    password: string
+  ) => Promise<{ success: boolean; msg: string }>;
+  updateUserData: (
+    userId: string
+  ) => Promise<{ success: boolean; msg: string } | undefined>;
 };
+
 
 export type ResponseType = {
   success: boolean;

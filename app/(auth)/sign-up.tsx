@@ -16,6 +16,7 @@ import {
   import * as Icons from "phosphor-react-native";
   import Button from "@/components/Button";
   import { useRouter } from "expo-router";
+  import { useAuth } from "@/contexts/authContext";
   
   const SignUp = () => {
     const emailRef = useRef("");
@@ -25,27 +26,50 @@ import {
     const router = useRouter();
     const formRef = useRef<Animatable.View & { shake?: (duration: number) => void }>(null);
   
+    const { register: registerUser } = useAuth();
+
     const handleSubmit = async () => {
-      if (!emailRef.current || !passwordRef.current || !nameRef.current) {
-        formRef.current?.shake?.(800);
-        Alert.alert("Sign In", "Please fill in all fields");
-        return;
-      }
-      try {
+        const email = emailRef.current?.trim();
+        const password = passwordRef.current?.trim();
+        const name = nameRef.current?.trim();
+      
+        // Input checks
+        if (!email || !password || !name) {
+          formRef.current?.shake?.(800);
+          Alert.alert("Sign Up", "Please fill in all fields");
+          return;
+        }
+      
+        // Email validation
+        const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
+        if (!isValidEmail(email)) {
+          Alert.alert("Sign Up", "Please enter a valid email address");
+          return;
+        }
+      
+        // Password validation (min 6 characters + 1 number or symbol)
+        const isValidPassword = (password: string) =>
+          password.length >= 6 && /[\d\W]/.test(password);
+        if (!isValidPassword(password)) {
+          Alert.alert(
+            "Sign Up",
+            "Password must be at least 6 characters and contain a number or special character"
+          );
+          return;
+        }
+      
+        // All good — go ahead
         setIsLoading(true);
-        console.log("email", emailRef.current);
-        console.log("password", passwordRef.current);
-        console.log("name", nameRef.current);
-        // fake delay
-        setTimeout(() => {
-          setIsLoading(false);
-          Alert.alert("Success", "You are logged in!");
-        }, 2000);
-      } catch (error) {
-        Alert.alert("Sign In", "Something went wrong, please try again");
+        const res = await registerUser(name, email, password);
         setIsLoading(false);
-      }
-    };
+      
+        if (!res.success) {
+          Alert.alert("Sign Up", res.msg);
+          return;
+        }
+      
+      };
+      
   
     return (
       <ScreenWrapper>
@@ -121,7 +145,7 @@ import {
             >
               <Button loading={isLoading} style={{ backgroundColor: colors.Yellow }} onPress={handleSubmit}>
                 <Typo fontWeight={"700"} color={colors.neutral1300} size={21}>
-                  {isLoading ? "Loading..." : "Sign In"}
+                  {isLoading ? "Loading..." : "Sign Up"}
                 </Typo>
               </Button>
             </Animatable.View>
@@ -132,7 +156,7 @@ import {
             <Typo size={15}>Already have an account?</Typo>
             <Pressable onPress={() => router.navigate("/sign-in")}>
               <Typo size={15} fontWeight={"700"} color={colors.Yellow}>
-                Sign Up
+                Sign In
               </Typo>
             </Pressable>
           </Animatable.View>

@@ -16,6 +16,7 @@ import {
   import * as Icons from "phosphor-react-native";
   import Button from "@/components/Button";
   import { useRouter } from "expo-router";
+    import { useAuth } from "@/contexts/authContext";
   
   const SignIn = () => {
     const emailRef = useRef("");
@@ -23,26 +24,21 @@ import {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const formRef = useRef<Animatable.View & { shake?: (duration: number) => void }>(null);
-  
+    const { login: loginUser } = useAuth();
+
     const handleSubmit = async () => {
       if (!emailRef.current || !passwordRef.current) {
         formRef.current?.shake?.(800);
         Alert.alert("Sign In", "Please fill in all fields");
         return;
       }
-      try {
         setIsLoading(true);
-        console.log("email", emailRef.current);
-        console.log("password", passwordRef.current);
-        // fake delay
-        setTimeout(() => {
-          setIsLoading(false);
-          Alert.alert("Success", "You are logged in!");
-        }, 2000);
-      } catch (error) {
-        Alert.alert("Sign In", "Something went wrong, please try again");
+        const res = await loginUser(emailRef.current, passwordRef.current)
         setIsLoading(false);
-      }
+        if(!res.success) {
+            Alert.alert("Sign In", res.msg)
+            return
+        }
     };
   
     return (
@@ -97,8 +93,7 @@ import {
   
             {/* Animated Button */}
             <Animatable.View
-              animation={isLoading ? "pulse" : undefined}
-              iterationCount="infinite"
+             
               duration={800}
               style={{ width: "100%" }}
             >
