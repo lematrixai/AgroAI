@@ -8,6 +8,7 @@ import { CameraType, useCameraPermissions } from 'expo-camera';
 import { Stack, useRouter } from 'expo-router';
 import { colors } from '@/constants/theme';
 import { verticalScale } from '@/utils/styling';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function _Layout() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function _Layout() {
 
   const renderIcon = ({ routeName, selectedTab }: { routeName: string; selectedTab: string }) => {
     const isSelected = routeName === selectedTab;
-    const iconColor = isSelected ? colors.neutral900 : 'gray';
+    const iconColor = isSelected ? colors.neutral900 : colors.neutral400;
     const weight = isSelected ? 'fill' : 'regular';
 
     switch (routeName) {
@@ -78,10 +79,17 @@ export default function _Layout() {
         initialRouteName="home"
         borderTopLeftRight
         renderCircle={() => (
-          <Animated.View style={styles.btnCircleUp}>
-            <TouchableOpacity onPress={pickImage}>
-              <Ionicons name="camera-outline" size={28} color={colors.neutral900} />
-            </TouchableOpacity>
+          <Animated.View >
+             <LinearGradient
+      colors={['#75E00A', '#0AE0A0']} 
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.btnCircleUp}
+    >
+      <TouchableOpacity onPress={pickImage}>
+        <Ionicons name="camera-outline" size={28} color={colors.white} />
+      </TouchableOpacity>
+    </LinearGradient>
           </Animated.View>
         )}
         tabBar={renderTabBar}

@@ -2,12 +2,10 @@ import {
   Dimensions,
   ImageBackground,
   Keyboard,
-  KeyboardAvoidingView,
   Platform,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
-  Animated,
   ActivityIndicator,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';

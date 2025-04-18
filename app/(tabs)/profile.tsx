@@ -1,6 +1,12 @@
-import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  ImageBackground,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack, useFocusEffect } from "expo-router";
+import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import * as Icons from "phosphor-react-native";
@@ -19,24 +25,32 @@ import { accountOptionType } from "@/types";
 
 const ProfileScreen = () => {
   const { user } = useAuth();
+  const router = useRouter();
   const [renderKey, setRenderKey] = useState(0);
 
-useFocusEffect(
-  useCallback(() => {
-    setRenderKey(prev => prev + 1); 
-  }, [])
-);
+  useFocusEffect(
+    useCallback(() => {
+      setRenderKey((prev) => prev + 1);
+    }, [])
+  );
 
   const accountOptions: accountOptionType[] = [
-    {
+   {
       title: "Edit Profile",
       icon: <Icons.User size={26} color={colors.white} weight="fill" />,
       routeName: "/(modals)/profileModal",
       bgColor: "#6366f1",
     },
+   
+    {
+      title: "Privacy Policy",
+      icon: <Icons.Lock size={26} color={colors.white} weight="fill" />,
+      // routeName: "/(modals)/settingModal",
+      bgColor: colors.neutral400,
+    },
     {
       title: "Logout",
-      icon: <Icons.Power size={26} color={colors.white} weight="fill" />,
+      icon: <Icons.User size={26} color={colors.white} weight="fill" />,
       bgColor: "#e11d48",
     },
   ];
@@ -60,69 +74,83 @@ useFocusEffect(
     if (item.title === "Logout") {
       showLogoutAlert();
     }
+    if(item.routeName) router.push(item.routeName);
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
-      <View style={styles.container}>
-        <Stack.Screen options={{ headerShown: false }} />
-        <StatusBar style="light" backgroundColor="#5D" />
+    <ImageBackground
+      source={require("@/assets/images/profilebg.jpg")}
+      resizeMode="cover"
+      style={styles.background}
+    >
+      <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
+        <View style={styles.container}>
+          <Stack.Screen options={{ headerShown: false }} />
+          <StatusBar style="light" backgroundColor="transparent" translucent />
 
-        <Header title="Profile" style={styles.header} />
+          <Header title="Profile" style={styles.header} />
 
-        {/* Profile Info */}
-        <View style={styles.userInfo}>
-          <Image source={getProfileImage(user?.image)} style={styles.avatar} />
-          <View style={styles.nameContainer}>
-            <Typo size={24} fontWeight="800" color={colors.neutral100}>
-              {user?.name}
-            </Typo>
-            <Typo size={15} color={colors.neutral300}>
-              {user?.email}
-            </Typo>
+          {/* Profile Info */}
+          <View style={styles.userInfo}>
+            <Image source={getProfileImage(user?.image)} style={styles.avatar} />
+            <View style={styles.nameContainer}>
+              <Typo size={24} fontWeight="800" color={colors.neutral100}>
+                {user?.name}
+              </Typo>
+              <Typo size={15} color={colors.neutral300}>
+                {user?.email}
+              </Typo>
+            </View>
+          </View>
+
+          {/* Options */}
+          <View style={styles.accountOptions} key={renderKey}>
+            {accountOptions.map((item, index) => (
+              <Animated.View
+                key={item.title}
+                entering={FadeInDown.delay(index * 80)}
+                style={styles.listItem}
+              >
+                <TouchableOpacity
+                  style={styles.optionRow}
+                  onPress={() => handlePress(item)}
+                >
+                  <View
+                    style={[styles.iconWrapper, { backgroundColor: item.bgColor }]}
+                  >
+                    {item.icon}
+                  </View>
+                  <Typo size={16} fontWeight="500" style={styles.optionTitle}>
+                    {item.title}
+                  </Typo>
+                  <Icons.CaretRight
+                    size={verticalScale(20)}
+                    color={colors.neutral400}
+                    weight="bold"
+                  />
+                </TouchableOpacity>
+              </Animated.View>
+            ))}
           </View>
         </View>
-
-        {/* Options */}
-        <View style={styles.accountOptions} key={renderKey}>
-          {accountOptions.map((item, index) => (
-            <Animated.View
-              key={item.title}
-              entering={FadeInDown.delay(index * 80)}
-              style={styles.listItem}
-            >
-              <TouchableOpacity style={styles.optionRow} onPress={() => handlePress(item)}>
-                <View style={[styles.iconWrapper, { backgroundColor: item.bgColor }]}>
-                  {item.icon}
-                </View>
-                <Typo size={16} fontWeight="500" style={styles.optionTitle}>
-                  {item.title}
-                </Typo>
-                <Icons.CaretRight
-                  size={verticalScale(20)}
-                  color={colors.neutral400}
-                  weight="bold"
-                />
-              </TouchableOpacity>
-            </Animated.View>
-          ))}
-        </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: colors.secondary900, 
+  },
   safeArea: {
     flex: 1,
-    backgroundColor: colors.secondary900,
   },
   container: {
     flex: 1,
     paddingHorizontal: spacingX._20,
-    backgroundColor: colors.secondary900,
   },
   header: {
     marginVertical: spacingY._10,

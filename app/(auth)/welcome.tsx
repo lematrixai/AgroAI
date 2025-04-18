@@ -52,7 +52,7 @@ const Welcome = () => {
               <Typo size={34} fontWeight="900" color={colors.neutral100}>
                 Discover Your Plant’s
               </Typo>
-              <Typo size={34} fontWeight="900" color={colors.primary}>
+              <Typo size={34} fontWeight="900" color={colors.green}>
                 Disease Early
               </Typo>
             </Animated.View>
@@ -63,7 +63,6 @@ const Welcome = () => {
             >
               <Button
                 onPress={() => router.push("/(auth)/sign-up")}
-                style={styles.glowButton}
               >
                 <Typo size={20} fontWeight="700" color={colors.neutral100}>
                   Get Started
@@ -103,10 +102,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     marginRight: spacingX._20,
     marginTop: spacingY._5,
-    // backgroundColor: "rgba(0,0,0,0.3)",
     paddingVertical: 8,
     paddingHorizontal: 18,
-    // borderRadius: 15,
   },
   footer: {
     paddingBottom: verticalScale(50),
@@ -124,14 +121,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: spacingY._10,
   },
-  glowButton: {
-    backgroundColor: colors.primary,
-    borderRadius: 12,
-    paddingVertical: 14,
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 25,
-    elevation: 8,
-  },
+ 
 });

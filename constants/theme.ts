@@ -21,6 +21,7 @@ export const colors = {
   // ✅ Accent Colors
   rose: "#ef4444",
   green: "#16a34a", 
+  greenDark :"#447055",
 
   // ✅  #447055
   neutral50: "#f5f9f6",
@@ -33,16 +34,12 @@ export const colors = {
   neutral600: "#556B5B",
   neutral700: "#4A5F50",
   neutral800: "#3C4C40",
-  neutral900: "#447055",
+  neutral900: "#75E00A",
   neutral1000: "#2F4E3D",
   neutral1100: "#2B4738",
   neutral1200: "#263D31",
   neutral1300: "#1F3225",
   neutral1400: "#1A2A20", 
-
-
-
-
 
     // primaryLight: "#0ea5e9",
     // primaryDark: "#0369a1",

@@ -30,6 +30,7 @@ function StackLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(modals)/profileModal"  options={{ presentation: "modal" }}/>
         <Stack.Screen options={{ headerShown: false }} name="+not-found" />
       </Stack>
     </>
