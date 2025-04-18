@@ -62,11 +62,11 @@ export const colors = {
     // neutral500: "#737373",
     // neutral600: "#525252",
     // neutral700: "#404040",
-    // neutral800: "#262626",
+    neutral_800: "#262626",
     
     secondary: "#a3e635",
     secondary900: "#171717",
-
+   secondary2: "#27272a",
   
 };
 
