@@ -109,12 +109,12 @@ const profileModal = () => {
       </View>
       <View style={styles.footer}>
         <Button onPress={onSubmit} loading={loading} style={{flex: 1, }}>
-            <Typo color={colors.black} fontWeight="700"> 
+            <Typo color={colors.black} style={{ gap: 2 }} fontWeight="700"> 
 
-                  {loading ? "Updating..." : "Update"}
+                  {loading ? "" : "Update"}
                 </Typo>
                 {loading && (
-                  <ActivityIndicator size="small" color={colors.neutral1300} />
+                  <ActivityIndicator size="large" color={colors.neutral1300} />
                 )}
         </Button>
       </View>
