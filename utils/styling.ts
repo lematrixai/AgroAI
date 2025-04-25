@@ -23,3 +23,10 @@ export const verticalScale = (size: number) =>
       (longDimension / guidelineBaseHeight) * (size as number)
     )
   );
+
+export const moderateScale = (size: number, factor = 0.5) =>
+  Math.round(
+    PixelRatio.roundToNearestPixel(
+      size + (scale(size) - size) * factor
+    )
+  );

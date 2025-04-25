@@ -1,9 +1,8 @@
 import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { colors } from "@/constants/theme";
 import { useAuth } from "@/contexts/authContext";
 import Animated, { FadeInDown } from "react-native-reanimated";
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { Image } from "expo-image";
 import { router } from "expo-router";
 const { width } = Dimensions.get('window');
@@ -21,8 +20,8 @@ export default function TopBar() {
       entering={FadeInDown.duration(800).springify()} 
       style={styles.container}
     >
-      <TouchableOpacity style={styles.iconButton}>
-        <Ionicons name="grid-outline" size={width * 0.06} color={colors.neutral300} />
+      <TouchableOpacity onPress={() => router.push('/chatbot')} style={styles.iconButton}>
+        <Image source={require("@/assets/images/chatbot.png")} style={styles.iconImage} />
       </TouchableOpacity>
 
       <TouchableOpacity 
@@ -57,6 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     opacity: 0.8,
+ 
   },
   profileContainer: {
     width: width * 0.12,
@@ -80,5 +80,9 @@ const styles = StyleSheet.create({
     width: "92%",
     height: "92%",
     borderRadius: width * 0.06,
+  },
+  iconImage: {
+    width: width * 0.1,
+    height: width * 0.1,
   },
 }); 

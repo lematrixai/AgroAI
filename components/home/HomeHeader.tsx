@@ -1,13 +1,12 @@
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { colors } from "@/constants/theme";
-import { useAuth } from "@/contexts/authContext";
 import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 import Typo from "@/components/Typo";
+import { router } from "expo-router";
 
 const { width } = Dimensions.get('window');
 
 export default function HomeHeader() {
-  const { user } = useAuth();
 
   return (
     <View style={styles.container}>
@@ -27,8 +26,11 @@ export default function HomeHeader() {
           Your Smart Maize Plant Analysis
         </Typo>
         <Typo style={styles.hint}>
-          Upload a leaf image for instant health diagnosis
+          Upload a leaf image for instant health diagnosis or chat with our AI assistant at top left.
         </Typo>
+        <TouchableOpacity onPress={() => router.push('/chatbot')}>
+            
+        </TouchableOpacity>
       </Animated.View>
     </View>
   );
