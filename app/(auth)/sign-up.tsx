@@ -60,6 +60,7 @@ const SignUp = () => {
     // All good — go ahead
     setIsLoading(true);
     const res = await registerUser(name, email, password);
+    router.replace("/(tabs)/home");
     setIsLoading(false);
 
     if (!res.success) {

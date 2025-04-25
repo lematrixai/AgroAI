@@ -2897,6 +2897,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-navigation/drawer@npm:^7.3.9":
+  version: 7.3.9
+  resolution: "@react-navigation/drawer@npm:7.3.9"
+  dependencies:
+    "@react-navigation/elements": "npm:^2.3.8"
+    color: "npm:^4.2.3"
+    react-native-drawer-layout: "npm:^4.1.6"
+    use-latest-callback: "npm:^0.2.1"
+  peerDependencies:
+    "@react-navigation/native": ^7.1.6
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-gesture-handler: ">= 2.0.0"
+    react-native-reanimated: ">= 2.0.0"
+    react-native-safe-area-context: ">= 4.0.0"
+    react-native-screens: ">= 4.0.0"
+  checksum: 10c0/00a793c69628b62e946f1b7f427e9bffcf9cb56793f0990750e045a313bb76997158b03b3161b6f79daf419fc436c82dfbbe438440fa13af367214247bc24b41
+  languageName: node
+  linkType: hard
+
 "@react-navigation/elements@npm:^2.3.8":
   version: 2.3.8
   resolution: "@react-navigation/elements@npm:2.3.8"
@@ -7492,6 +7512,7 @@ __metadata:
     "@expo/vector-icons": "npm:^14.0.2"
     "@react-native-async-storage/async-storage": "npm:^2.1.2"
     "@react-navigation/bottom-tabs": "npm:^7.3.10"
+    "@react-navigation/drawer": "npm:^7.3.9"
     "@react-navigation/native": "npm:^7.0.14"
     "@types/jest": "npm:^29.5.12"
     "@types/react": "npm:~18.3.12"
@@ -9016,6 +9037,20 @@ __metadata:
     react-native: "*"
     react-native-svg: "*"
   checksum: 10c0/e9dab0812da2d47009e90fd3189a51feaa557714d7424993febd7e81bdcc53a9afb9b0a778dc24eec906c68d2a2f38832c63205d0c671755912b39ac7702c27e
+  languageName: node
+  linkType: hard
+
+"react-native-drawer-layout@npm:^4.1.6":
+  version: 4.1.6
+  resolution: "react-native-drawer-layout@npm:4.1.6"
+  dependencies:
+    use-latest-callback: "npm:^0.2.1"
+  peerDependencies:
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-gesture-handler: ">= 2.0.0"
+    react-native-reanimated: ">= 2.0.0"
+  checksum: 10c0/d3089dbcf0fa418d7f675b4c41bd8a10e4a866e73c3b2f3b716baa50876ab4329107f6caa3543331d3ce55edc8767024965b890fbd26893e88e291b27d952c2e
   languageName: node
   linkType: hard
 

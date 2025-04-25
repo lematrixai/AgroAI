@@ -1,13 +1,13 @@
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { colors, spacingX, spacingY } from '@/constants/theme';
 import { Link, Stack } from 'expo-router';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Typo from '@/components/Typo';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 export default function NotFoundScreen() {
   return (
-    <>
+    <View>
       <ScreenWrapper style={{ flex: 1, backgroundColor: 'crimson' }}>
         <Stack.Screen options={{ title: 'Oops!' }} />
         <Animated.View
@@ -30,7 +30,7 @@ export default function NotFoundScreen() {
           </Link>
         </Animated.View>
       </ScreenWrapper>
-    </>
+    </View>
   );
 }
 

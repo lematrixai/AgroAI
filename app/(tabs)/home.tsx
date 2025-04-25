@@ -1,37 +1,22 @@
-import {
-  View,
-  StyleSheet,
-  ImageBackground,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { Image } from "expo-image";
 import { colors } from "@/constants/theme";
-import { useAuth } from "@/contexts/authContext";
 import Button from "@/components/Button";
 import Typo from "@/components/Typo";
+import HomeHeader from "@/components/home/HomeHeader";
+import ImageUploader from "@/components/home/ImageUploader";
+import TopBar from "@/components/home/TopBar";
+import Animated, { FadeInUp } from "react-native-reanimated";
+import { createGradientBackground } from "@/utils/gradient";
+
+
 
 export default function HomeScreen() {
   const [image, setImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useAuth();
-
-  const handlePickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images, // ✅ FIXED deprecation
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets?.length > 0) {
-      setImage(result.assets[0].uri);
-    }
-  };
 
   const handleUpload = () => {
     // Upload logic goes here
@@ -47,34 +32,31 @@ export default function HomeScreen() {
         style={styles.background}
         resizeMode="cover"
       >
-        <View style={styles.overlay} />
+        <View style={createGradientBackground(0.4)} />
 
-        {/* Content */}
-        <View style={styles.content}>
-          <Text style={styles.title}>Hi, {user?.name}</Text>
-          <Text style={styles.subtitle}>
-            Upload maize leaf image to start analysis
-          </Text>
+        <TopBar />
 
-          <TouchableOpacity onPress={handlePickImage} activeOpacity={0.8}>
-            <Image
-              source={image || require("@/assets/images/uploads.png")}
-              style={[
-                styles.uploadImage,
-                image && styles.uploadImageSelected,
-              ]}
-              contentFit="cover"
-            />
-          </TouchableOpacity>
+        <View>
+          <HomeHeader />
+          
+          <ImageUploader 
+            image={image}
+            onImageSelected={setImage}
+          />
 
           {image && (
-            <Button
-              loading={isLoading}
-              onPress={handleUpload}
-              style={{ width: "100%"}}
+            <Animated.View
+              entering={FadeInUp.duration(1000).springify().delay(600)}
+              style={styles.buttonContainer}
             >
-              <Typo style={styles.buttonText}>Continue</Typo>
-            </Button>
+              <Button
+                loading={isLoading}
+                onPress={handleUpload}
+                style={styles.button}
+              >
+                <Typo style={styles.buttonText}>Continue</Typo>
+              </Button>
+            </Animated.View>
           )}
         </View>
       </ImageBackground>
@@ -89,49 +71,17 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    justifyContent: "flex-end",
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 24,
-    paddingBottom: 60,
-    zIndex: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "800",
-    color: colors.neutral100,
-    marginBottom: 8,
-    textAlign: "center",
-  },
-  subtitle: {
-    fontSize: 16,
-    color: colors.neutral300,
-    marginBottom: 20,
-    textAlign: "center",
-    maxWidth: 300,
-  },
-  uploadImage: {
-    width: 250,
-    height: 250,
-    borderRadius: 16,
-    marginBottom: 24,
-  },
-  uploadImageSelected: {
-    borderWidth: 2,
-    borderColor: colors.green,
-  },
-  button: {
+  buttonContainer: {
     width: "100%",
     alignItems: "center",
   },
+  button: {
+    width: "70%",
+    alignSelf: "center",
+  },
   buttonText: {
-    color: "#fff",
+    color: colors.neutral100,
     fontSize: 16,
     fontWeight: "600",
   },

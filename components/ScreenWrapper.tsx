@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
   ActivityIndicator,
+  KeyboardAvoidingView, // <-- Import KeyboardAvoidingView
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ScreenWrapperProps } from '@/types';
@@ -41,21 +42,27 @@ const ScreenWrapper = ({ style, children }: ScreenWrapperProps) => {
 
   return (
     <ImageBackground
-    source={require('@/assets/images/background.png')}
-    style={[styles.bg, { paddingTop }, style]}
-    resizeMode="cover"
-    blurRadius={0.5}
-  >
-    <StatusBar style="light" />
-    <View style={styles.overlay} />
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.content}>
-        {children}
-      </View>
-    </TouchableWithoutFeedback>
-  </ImageBackground>
+      source={require('@/assets/images/background.png')}
+      style={[styles.bg, { paddingTop }, style]}
+      resizeMode="cover"
+      blurRadius={0.5}
+    >
+      <StatusBar style="light" />
+      <View style={styles.overlay} />
+      
+      {/* Wrap everything in KeyboardAvoidingView */}
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.content}>
+            {children}
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
-  
 };
 
 export default ScreenWrapper;

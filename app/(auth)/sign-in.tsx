@@ -3,7 +3,6 @@ import {
   Alert,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import React, { useRef, useState } from "react";
@@ -16,8 +15,9 @@ import Typo from "@/components/Typo";
 import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
-import { useRouter } from "expo-router";
+import { router, useRouter } from "expo-router";
 import { useAuth } from "@/contexts/authContext";
+
 
 const SignIn = () => {
   const emailRef = useRef("");
@@ -37,6 +37,7 @@ const SignIn = () => {
     }
     setIsLoading(true);
     const res = await loginUser(emailRef.current, passwordRef.current);
+    router.replace("/(tabs)/home");
     setIsLoading(false);
     if (!res.success) {
       Alert.alert("Sign In", res.msg);

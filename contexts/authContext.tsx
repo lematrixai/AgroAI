@@ -39,6 +39,7 @@ useEffect(() => {
         if(msg.includes("(auth/invalid-credential)")) msg = "Invalid credentials";
         if(msg.includes("(auth/invalid-email)")) msg = "Invalid email";
         if(msg.includes("(auth/user-not-found)")) msg = "User not found";
+        if(msg.includes("auth/network-request-failed")) msg = "You are offline: Connect to the internet to conitue login";
         return {success: false, msg }
         
     }
@@ -60,6 +61,7 @@ useEffect(() => {
         if(msg.includes("(auth/weak-password)")) msg = "Password should be at least 6 characters";
         if(msg.includes("(auth/operation-not-allowed)")) msg = "Operation not allowed";
         if(msg.includes("(auth/invalid-email)")) msg = "Invalid email";
+        if(msg.includes("auth/network-request-failed")) msg = "You are offline: Connect to the internet to continue register";
         return {success: false, msg }
         
     }
