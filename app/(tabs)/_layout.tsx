@@ -2,41 +2,15 @@ import React, { useState } from 'react';
 import { CurvedBottomBarExpo } from 'react-native-curved-bottom-bar';
 import { TouchableOpacity, Animated, StyleSheet, Alert, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as ImagePicker from 'expo-image-picker';
 import * as Icons from 'phosphor-react-native';
-import { CameraType, useCameraPermissions } from 'expo-camera';
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import { colors } from '@/constants/theme';
 import { verticalScale } from '@/utils/styling';
 import { LinearGradient } from 'expo-linear-gradient';
+import CameraCapture from '@/components/home/floatButton/Camera';
 
 export default function _Layout() {
-  const router = useRouter();
-  const [facing, setFacing] = useState<CameraType>('back');
-  const [permission] = useCameraPermissions();
 
-  if (!permission) {
-    return <View />;
-  }
-
-  const pickImage = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('Permission denied', 'Please allow gallery access.');
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const uri = result.assets[0].uri;
-      console.log('Image selected:', uri);
-    }
-  };
 
   const renderIcon = ({ routeName, selectedTab }: { routeName: string; selectedTab: string }) => {
     const isSelected = routeName === selectedTab;
@@ -86,9 +60,9 @@ export default function _Layout() {
       end={{ x: 1, y: 1 }}
       style={styles.btnCircleUp}
     >
-      <TouchableOpacity onPress={pickImage}>
-        <Ionicons name="camera-outline" size={28} color={colors.white} />
-      </TouchableOpacity>
+
+      <CameraCapture />
+     
     </LinearGradient>
           </Animated.View>
         )}

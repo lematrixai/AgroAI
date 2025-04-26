@@ -39,7 +39,7 @@ export default function HomeHeader() {
 const styles = StyleSheet.create({
   container: {
     alignItems: "flex-start",
-    marginBottom: width * 0.12,
+    marginBottom: width * 0.05,
     paddingHorizontal: width * 0.05,
     width: "100%",
   },

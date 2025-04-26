@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   sendButton: {
     padding: moderateScale(8),
     backgroundColor: colors.primary,
-    borderRadius: moderateScale(50),
+    borderRadius: "50%",
     alignItems: "center",
     justifyContent: "center",
   },
